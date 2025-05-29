@@ -3,8 +3,8 @@ import { faker } from '@faker-js/faker';
 import bcrypt from 'bcrypt';
 
 /**
- * Genera un usuario mock (sin _id, createdAt, updatedAt para que Mongoose los genere).
- * @returns {Object} Un objeto usuario listo para insertar.
+ * 
+  @returns {Object} 
  */
 const generateMockUser = async () => {
   const hashedPassword = await bcrypt.hash('coder123', 10);
@@ -19,7 +19,7 @@ const generateMockUser = async () => {
     password: hashedPassword,
     age: faker.number.int({ min: 18, max: 99 }),
     role: randomRole,
-    pets: [], // Array vacío de mascotas
+    pets: [],
   };
 };
 

@@ -1,4 +1,4 @@
-// src/models/User.model.js
+
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
@@ -8,8 +8,8 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     age: { type: Number },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
-    pets: { type: [mongoose.Schema.Types.ObjectId], ref: 'Pet', default: [] }, // Array de ObjectId que referencia a Pet
-}, { timestamps: true }); // Añade createdAt y updatedAt automáticamente
+    pets: { type: [mongoose.Schema.Types.ObjectId], ref: 'Pet', default: [] }, 
+}, { timestamps: true }); 
 
 const UserModel = mongoose.model('User', userSchema);
 

@@ -2,17 +2,17 @@
 import { faker } from '@faker-js/faker';
 
 /**
- * Genera una mascota mock (sin _id, createdAt, updatedAt para que Mongoose los genere).
- * @returns {Object} Un objeto mascota listo para insertar.
+ 
+ @returns {Object} 
  */
 const generateMockPet = () => {
   return {
     name: faker.animal.type() + ' ' + faker.person.firstName(),
     species: faker.animal.type(),
-    breed: faker.word.noun(), // O la opción que hayas elegido para la raza
+    breed: faker.word.noun(), 
     age: faker.number.int({ min: 1, max: 15 }),
     description: faker.lorem.sentence(),
-    owner: null, // Sin owner (se podrá asignar después de crear usuarios)
+    owner: null, 
     adopted: false,
   };
 };

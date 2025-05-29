@@ -1,14 +1,13 @@
 // src/constants/errors.js
 
 const EErrors = {
-    ROUTING_ERROR: 1,       // La ruta no existe
-    INVALID_TYPES_ERROR: 2, // Tipos de datos inválidos en la petición (ej. body incorrecto)
-    DATABASE_ERROR: 3,      // Error de base de datos (MongoDB, etc.)
-    AUTH_ERROR: 4,          // Error de autenticación/autorización
-    PET_CREATION_ERROR: 5,  // Error al crear una mascota (ej. campos faltantes)
-    USER_REGISTRATION_ERROR: 6, // Error al registrar un usuario (ej. usuario ya existe)
-    MISSING_FIELDS_ERROR: 7, // Campos obligatorios faltantes
-    // Puedes añadir más códigos de error según tus necesidades
+    ROUTING_ERROR: 1,      
+    INVALID_TYPES_ERROR: 2, 
+    DATABASE_ERROR: 3,      
+    AUTH_ERROR: 4,          
+    PET_CREATION_ERROR: 5, 
+    USER_REGISTRATION_ERROR: 6, 
+    MISSING_FIELDS_ERROR: 7,
 };
 
 const ErrorMessages = {
@@ -19,7 +18,7 @@ const ErrorMessages = {
     [EErrors.PET_CREATION_ERROR]: "No se pudo crear la mascota debido a datos incompletos o incorrectos.",
     [EErrors.USER_REGISTRATION_ERROR]: "No se pudo registrar el usuario. El correo electrónico o nombre de usuario ya pueden estar en uso.",
     [EErrors.MISSING_FIELDS_ERROR]: "Faltan campos obligatorios en la solicitud.",
-    // Añade mensajes para otros errores si los defines en EErrors
+    
 };
 
 module.exports = {

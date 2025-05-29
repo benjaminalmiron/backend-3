@@ -1,4 +1,4 @@
-// src/models/Pet.model.js
+
 import mongoose from 'mongoose';
 
 const petSchema = new mongoose.Schema({
@@ -7,9 +7,9 @@ const petSchema = new mongoose.Schema({
     breed: { type: String },
     age: { type: Number },
     description: { type: String },
-    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null }, // Referencia a User, puede ser null
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
     adopted: { type: Boolean, default: false },
-}, { timestamps: true }); // Añade createdAt y updatedAt automáticamente
+}, { timestamps: true });
 
 const PetModel = mongoose.model('Pet', petSchema);
 
