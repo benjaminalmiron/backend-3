@@ -1,6 +1,6 @@
 // src/mocking/mockingUsers.js
 import { faker } from '@faker-js/faker';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 /**
  * 

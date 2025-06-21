@@ -1,0 +1,446 @@
+# src/docs/swagger.yaml
+openapi: 3.0.0
+info:
+  title: AdoptMe API Documentation
+  version: 1.0.0
+  description: Documentación interactiva para la API de AdoptMe, incluyendo usuarios, mascotas y pruebas de logging.
+  contact:
+    name: Benja
+    email: tu.email@example.com # ¡RECUERDA CAMBIAR ESTO POR TU EMAIL!
+
+servers:
+  # Corregido: La URL base sin /api, ya que las rutas en paths ya lo tienen.
+  - url: http://localhost:4000
+    description: Servidor de Desarrollo Local
+
+tags:
+  - name: Users
+    description: Operaciones de gestión de usuarios
+  - name: Pets
+    description: Operaciones de gestión de mascotas
+  - name: Logging
+    description: Pruebas de los niveles de logging
+
+paths:
+  # --- RUTAS DE USUARIOS (/api/users) ---
+  /api/users:
+    get:
+      summary: Obtener todos los usuarios
+      tags: [Users]
+      description: Recupera una lista de todos los usuarios registrados en el sistema.
+      responses:
+        '200':
+          description: OK. Lista de usuarios obtenida exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Crear un nuevo usuario
+      tags: [Users]
+      description: Crea un nuevo usuario en el sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '201':
+          description: Usuario creado exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    $ref: '#/components/schemas/User'
+        '400':
+          description: Datos inválidos o incompletos proporcionados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/users/{uid}:
+    get:
+      summary: Obtener un usuario por ID
+      tags: [Users]
+      description: Recupera los detalles de un usuario específico utilizando su ID.
+      parameters:
+        - in: path
+          name: uid
+          schema:
+            type: string
+          required: true
+          description: ID único del usuario a recuperar.
+      responses:
+        '200':
+          description: OK. Usuario obtenido exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    $ref: '#/components/schemas/User'
+        '404':
+          description: Usuario no encontrado con el ID proporcionado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Actualizar un usuario existente
+      tags: [Users]
+      description: Actualiza los datos de un usuario existente por su ID.
+      parameters:
+        - in: path
+          name: uid
+          schema:
+            type: string
+          required: true
+          description: ID único del usuario a actualizar.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput' # Reutilizamos UserInput, asumiendo que es similar para actualizar
+      responses:
+        '200':
+          description: Usuario actualizado exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: User updated
+        '400':
+          description: Datos inválidos para la actualización.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Usuario no encontrado para actualizar.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Eliminar un usuario
+      tags: [Users]
+      description: Elimina un usuario del sistema por su ID.
+      parameters:
+        - in: path
+          name: uid
+          schema:
+            type: string
+          required: true
+          description: ID único del usuario a eliminar.
+      responses:
+        '200':
+          description: Usuario eliminado exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: User deleted
+        '404':
+          description: Usuario no encontrado para eliminar.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # --- RUTAS DE MASCOTAS (/api/pets y / si tu petsRouter está montado en /) ---
+  /api/pets: # Asumiendo que esta es la ruta principal para las operaciones CRUD de pets
+    get:
+      summary: Obtener todas las mascotas
+      tags: [Pets]
+      description: Recupera una lista de todas las mascotas registradas en el sistema.
+      responses:
+        '200':
+          description: OK. Lista de mascotas obtenida exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Pet'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Crear una nueva mascota
+      tags: [Pets]
+      description: Crea una nueva mascota en el sistema. Soporta también subida de imagen.
+      requestBody:
+        required: true
+        content:
+          application/json: # Para creación sin imagen
+            schema:
+              $ref: '#/components/schemas/PetInput'
+          multipart/form-data: # Para creación con imagen (si usas Multer)
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre de la mascota
+                species: # Coincide con tu Schema
+                  type: string
+                  description: Especie de la mascota
+                breed: # Nuevo campo de tu Schema
+                  type: string
+                  description: Raza de la mascota
+                age: # Nuevo campo de tu Schema
+                  type: integer
+                  description: Edad de la mascota
+                description: # Nuevo campo de tu Schema
+                  type: string
+                  description: Descripción adicional de la mascota
+                # No incluimos owner y adopted aquí ya que suelen ser manejados internamente o en adopciones
+                image:
+                  type: string
+                  format: binary
+                  description: Archivo de imagen de la mascota
+              required:
+                - name
+                - species # Coincide con tu Schema
+      responses:
+        '200':
+          description: Mascota creada exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    $ref: '#/components/schemas/Pet'
+        '400':
+          description: Datos inválidos o incompletos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/pets/{pid}:
+    get:
+      summary: Obtener una mascota por ID
+      tags: [Pets]
+      description: Recupera los detalles de una mascota específica utilizando su ID.
+      parameters:
+        - in: path
+          name: pid
+          schema:
+            type: string
+          required: true
+          description: ID único de la mascota a recuperar.
+      responses:
+        '200':
+          description: OK. Mascota obtenida exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    $ref: '#/components/schemas/Pet'
+        '404':
+          description: Mascota no encontrada con el ID proporcionado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Actualizar una mascota existente
+      tags: [Pets]
+      description: Actualiza los datos de una mascota existente por su ID.
+      parameters:
+        - in: path
+          name: pid
+          schema:
+            type: string
+          required: true
+          description: ID único de la mascota a actualizar.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetUpdateInput' # Usamos un input de actualización
+      responses:
+        '200':
+          description: Mascota actualizada exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: pet updated
+        '400':
+          description: Datos inválidos para la actualización.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Mascota no encontrada para actualizar.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Eliminar una mascota
+      tags: [Pets]
+      description: Elimina una mascota del sistema por su ID.
+      parameters:
+        - in: path
+          name: pid
+          schema:
+            type: string
+          required: true
+          description: ID único de la mascota a eliminar.
+      responses:
+        '200':
+          description: Mascota eliminada exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: pet deleted
+        '404':
+          description: Mascota no encontrada para eliminar.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # --- RUTAS DE LOGGING (/loggerTest) ---
+  /loggerTest:
+    get:
+      summary: Probar los niveles de logging
+      tags: [Logging]
+      description: Dispara mensajes en todos los niveles del logger (debug, http, info, warning, error, fatal) para probar la configuración.
+      responses:
+        '200':
+          description: Mensajes de log enviados. Revisa tu consola y el archivo errors.log.
+          content:
+            text/plain:
+              example: Logs de prueba enviados. Revisa tu consola y el archivo errors.log
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+# La sección 'components' debería ir aquí, al mismo nivel que 'paths', 'tags', etc.
+# Si esta sección no está, o está mal indentada, causará los errores de "Could not resolve reference".

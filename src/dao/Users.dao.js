@@ -1,3 +1,5 @@
+// src/dao/Users.dao.js
+
 import userModel from "./models/User.js";
 
 
@@ -11,7 +13,9 @@ export default class Users {
         return userModel.findOne(params);
     }
 
-    save = (doc) =>{
+    // *** ¡CAMBIA ESTA LÍNEA! ***
+    // Antes: save = (doc) => {
+    create = (doc) => { // ¡Ahora se llama 'create'!
         return userModel.create(doc);
     }
 
