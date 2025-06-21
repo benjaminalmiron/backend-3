@@ -1,11 +1,9 @@
-// src/dao/Users.dao.js
-
 import userModel from "./models/User.js";
 
 
 export default class Users {
     
-    get = (params) =>{
+    getAll = (params = {}) => { // Agregamos un valor por defecto de {} para params
         return userModel.find(params);
     }
 

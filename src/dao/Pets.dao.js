@@ -2,7 +2,7 @@ import petModel from "./models/Pet.js";
 
 export default class Pet {
 
-    get = (params) =>{
+    getAll = (params) =>{
         return petModel.find(params);
     }
 
