@@ -1,4 +1,4 @@
-// src/constants/errors.js
+
 
 const EErrors = {
     ROUTING_ERROR: 1,      

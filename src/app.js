@@ -22,7 +22,7 @@ const swaggerSpec = YAML.load('./src/docs/swagger.yaml');
 
 app.use(express.json());
 app.use(cookieParser());
-/* app.use('/', petsRouter); */
+
 
 app.use('/api/users',usersRouter);
 app.use('/api/pets',petsRouter);

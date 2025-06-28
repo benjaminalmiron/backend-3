@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     logger.error('Este es un mensaje de error desde /loggerTest.');
     logger.fatal('Este es un mensaje fatal desde /loggerTest.');
 
-    // Los console.log también usarán Winston si configuraste la sobrescritura en logger.js
+    
     console.log('Este console.log ahora usa el logger de Winston desde /loggerTest.');
     console.error('Este console.error ahora usa el logger de Winston desde /loggerTest.');
 

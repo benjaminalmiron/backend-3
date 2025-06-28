@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import petsController from '../controllers/pets.controller.js';
 import uploader from '../utils/uploader.js';
-import { generateMockPets } from '../mocking/mockingPets.js'; // Cambiar require por import
+import { generateMockPets } from '../mocking/mockingPets.js';
 
 const router = Router();
 

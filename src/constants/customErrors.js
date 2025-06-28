@@ -1,4 +1,4 @@
-// src/errors/customErrors.js
+
 
 class CustomError extends Error {
     constructor(name, message, code, cause) {

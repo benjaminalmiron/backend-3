@@ -6,18 +6,18 @@ export default class GenericRepository {
         this.dao = dao;
     }
 
-    // ¡CAMBIO AQUÍ! De 'get' a 'getAll'
+    
     getAll = (params) => {
-        return this.dao.getAll(params); // Ahora llama al método 'getAll' de tu DAO
+        return this.dao.getAll(params); 
     }
 
     getBy = (params) => {
         return this.dao.getBy(params);
     }
 
-    // ¡CAMBIO AQUÍ! De 'save' a 'create'
+    
     create = (doc) => {
-        return this.dao.create(doc); // Ahora llama al método 'create' de tu DAO
+        return this.dao.create(doc); 
     }
 
     update = (id, doc) => {

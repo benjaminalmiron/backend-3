@@ -3,7 +3,7 @@ import userModel from "./models/User.js";
 
 export default class Users {
     
-    getAll = (params = {}) => { // Agregamos un valor por defecto de {} para params
+    getAll = (params = {}) => { 
         return userModel.find(params);
     }
 
@@ -11,9 +11,8 @@ export default class Users {
         return userModel.findOne(params);
     }
 
-    // *** ¡CAMBIA ESTA LÍNEA! ***
-    // Antes: save = (doc) => {
-    create = (doc) => { // ¡Ahora se llama 'create'!
+   
+    create = (doc) => { 
         return userModel.create(doc);
     }
 
