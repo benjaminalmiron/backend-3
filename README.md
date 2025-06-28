@@ -26,5 +26,3 @@ La imagen Docker de este proyecto está disponible en Docker Hub.
 
 # Env
 
-MONGODB_URI=mongodb+srv://benjamin:pHbZYE0lpB80aw7f@clustercoderhouse.r19k5.mongodb.net/pets?retryWrites=true&w=majority
-NODE_ENV=test
